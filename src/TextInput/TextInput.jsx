@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function TextInput({ label, type = 'text', onchangeHandler }) {
+function TextInput({ label = 'Enter the word', type = 'text', onChange }) {
+
+
     return (
-        <div className='flex '>
-            <label htmlFor="">{label}</label>
-            <input className='w-full border border-black rounded-md p-2 m-2'
-                type="text"
-                onchange={onchangeHandler} />
-        </div>
+        <label htmlFor="">
+            {{ label } && <span> {label}</span>}
+            <input className='w-[100%] border border-black rounded-md p-2 m-2'
+                type={type}
+                onChange={onChange}
+                placeholder={label}
+            />
+        </label>
+
     )
 }
 

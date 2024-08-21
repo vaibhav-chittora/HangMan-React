@@ -1,26 +1,16 @@
-import { useState } from "react"
+// this is now the presentational component
+
 import TextInput from "../TextInput/TextInput"
+import Button from "../Button/Button";
 
-function TextInputForm() {
-    const [inputType, SetInputType] = useState('password')
+function TextInputForm({ handleFormSubmit, handleOnChange, inputValue, inputType, SetInputType }) {
 
-    const [inputValue, setInputValue] = useState()
 
-    function handleFormSubmit(event) {
-        event.preventDefault();
-        console.log("Form Submitted", inputValue);
-    }
-
-    function handleOnChange(event) {
-        console.log(event.target.value);
-        setInputValue(event.target.value)
-        
-    }
     return (
         <>
             <h1 className="text-3xl">Guess the word</h1>
             <form
-                className="m-3 flex items-center h-[500px] w-[50%] border border-black rounded-lg"
+                className="m-3 flex items-center h-[500px] w-[50%] rounded-lg"
                 onSubmit={handleFormSubmit}
             >
                 <div className="">
@@ -28,23 +18,22 @@ function TextInputForm() {
                         label="Enter the word you want to guess"
                         type={inputType}
                         onChange={handleOnChange}
-                        value = {inputValue}
+                        value={inputValue}
 
                     />
-                </div>
-                <div className="flex rounded-md p-2 m-2">
-                    <button
-                        className="bg-green-300 m-3 px-3 rounded text-2xl cursor-pointer"
-                        type="submit"
-                    >
-                        Submit
-                    </button>
-                    <button
-                        className="bg-green-300 m-3 px-3 rounded text-2xl cursor-pointer"
+                    <div className="flex items-center justify-center rounded-md p-2 m-2">
+                        <Button
+                            text='Submit'
+                            type='submit'
 
-                    >
-                        Show
-                    </button>
+                        />
+                        <Button
+                            text={inputType === 'password' ? "Show" : "Hide"}
+                            onclick={() => {
+                                SetInputType(inputType === 'password' ? 'text' : 'password')
+                            }}
+                        />
+                    </div>
                 </div>
 
             </form >

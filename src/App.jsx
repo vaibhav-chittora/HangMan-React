@@ -1,17 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import TextInputForm from './TextInputForm/TextInputForm'
-import TextInputFormContainer from './TextInputForm/TextInputFormContainer'
+import { Route, Routes } from 'react-router-dom'
+import StartGame from './Pages/StartGame/StartGame'
+import PlayGame from './Pages/PlayGame/PlayGame'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1 className='text-5xl text-center bg-red-300 p-3'>Hangman Using React</h1>
-      <TextInputFormContainer/>
+      {/* <h1 className='text-5xl text-center bg-red-300 p-3'>Hangman Using React</h1>
+      <TextInputFormContainer/> */}
+
+      <Routes>
+        <Route path='/start' element={<StartGame />} />
+        <Route path='/play' element={<PlayGame />} />
+        <Route path='*' element={<div>Visit a valid URL</div>}/>
+      </Routes>
     </>
   )
 }

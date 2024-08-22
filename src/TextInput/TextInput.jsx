@@ -7,6 +7,7 @@ function TextInput({ label = 'Enter the word', type = 'text', onChange }) {
         <label htmlFor="">
             {{ label } && <span className=''> {label}</span>}
             <input className='w-[100%] border border-black rounded-md p-2 m-2'
+            required
                 type={type}
                 onChange={onChange}
                 placeholder={label}

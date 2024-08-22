@@ -11,7 +11,8 @@ function TextInputFormContainer({onSubmit }) {
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        console.log("Form Submitted", inputValue);
+        // console.log("Form Submitted", inputValue);
+        onSubmit?.(inputValue)
     }
 
     function handleOnChange(event) {

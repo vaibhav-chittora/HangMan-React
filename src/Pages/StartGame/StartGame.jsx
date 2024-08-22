@@ -1,13 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import TextInputFormContainer from '../../TextInputForm/TextInputFormContainer'
 
 function StartGame() {
-  return (
-    <>
-    <div>StartGame
-    </div>
 
-    <Link to='/play'>Play Game</Link>
+  const navigate = useNavigate()
+
+  function onSubmitHandler(value){
+    navigate('/play')
+    console.log("Form Submitted", value);
+  }
+
+  return (
+    < >
+      <div className='bg-gradient-to-r from-red-300 via-red-400 to-red-400'>
+
+        <TextInputFormContainer onSubmit={onSubmitHandler}/>
+
+        <Link to='/play'>Link tag for play</Link>
+      </div>
     </>
   )
 }

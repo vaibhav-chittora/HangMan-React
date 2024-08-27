@@ -1,7 +1,7 @@
 import { getAllCharacters } from "../MaskedText/MaskedtextUtility";
 
 function MaskedText({ text, usedLetters }) {
-    const letters = getAllCharacters("humble", ['b', 'e']).split('');
+    const letters = getAllCharacters(text, usedLetters).split('');
     return (
         <div>{
             letters.map((letter,index) => {

@@ -1,13 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import MaskedText from '../../MaskedText/MaskedText'
 
 function PlayGame() {
   return (
-    <>
     <div>PlayGame
+    <MaskedText/>
     </div>
-    <Link to='/102'>Start Game</Link>
-    </>
   )
 }
 

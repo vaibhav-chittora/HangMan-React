@@ -1,9 +1,9 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import StartGame from './Pages/StartGame/StartGame'
 import PlayGame from './Pages/PlayGame/PlayGame'
 import Navbar from './Navbar/Navbar'
 import Footer from './Footer/Footer'
+import StartGame from './Pages/StartGame/StartGame'
 function App() {
 
   return (

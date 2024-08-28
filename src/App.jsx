@@ -4,6 +4,7 @@ import PlayGame from './Pages/PlayGame/PlayGame'
 import Navbar from './Navbar/Navbar'
 import Footer from './Footer/Footer'
 import StartGame from './Pages/StartGame/StartGame'
+import StartGame1 from './Pages/StartGame/StartGame1'
 function App() {
 
   return (

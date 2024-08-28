@@ -18,7 +18,7 @@ function StartGame() {
 
         <TextInputFormContainer onSubmit={onSubmitHandler} />
 
-        <Link to='/play'>Link tag for play</Link>
+        {/* <Link to='/play'>Link tag for play</Link> */}
       </div>
     </>
   )

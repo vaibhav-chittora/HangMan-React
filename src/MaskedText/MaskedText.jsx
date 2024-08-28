@@ -6,7 +6,7 @@ function MaskedText({ text, usedLetters }) {
         <div>{
             letters.map((letter,index) => {
 
-                return <span key= {`letter-${index}`} className="mx-2 ">{letter}</span>
+                return <span key= {`letter-${index}`} className="mx-2 text-2xl font-bold ">{letter}</span>
             })}
             </div>
     )

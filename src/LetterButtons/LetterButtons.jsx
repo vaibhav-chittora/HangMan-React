@@ -5,33 +5,39 @@ import React from 'react'
 
 const alphabets = new Array(26).fill('').map((element, index) => String.fromCharCode(65 + index))
 
-function LetterButtons({ usedLetters, onLetterClick }) {
+function LetterButtons({ text, usedLetters, onLetterClick }) {
 
+    const originalLetters = new Set(text.toUpperCase().split(''))
     const selectedLetters = new Set(usedLetters.join('').toUpperCase().split(''))
 
 
     const buttonStyle = function (letter) {
         if (selectedLetters.has(letter)) {
-            return 'bg-blue-500 border-blue-700 hover:bg-blue-600 text-white text-xl font-bold rounded-xl'
-        } else {
-            return 'bg-red-500 border-red-700 hover:bg-red-600 text-white text-xl font-bold rounded-xl'
-
+            // return `bg-green-500 border-green-700 hover:bg-green-600 text-white text-xl font-bold rounded-xl`
+            return `bg-red-500 border-red-700 rounded-xl font-bold text-white ${originalLetters.has(letter) ? 'bg-green-500 border-red-700 font-bold' : 'bg-red-900 disabled border-red-700 font-bold'}`
+            
+        }
+        else {
+                // return `bg-green-500 border-green-700 hover:bg-green-600 text-white text-xl font-bold rounded-xl`
+                return `bg-red-300 border-red-500 rounded-xl font-bold text-white ${originalLetters.has(letter) ? 'bg-red-500 border-red-700 font-bold' : 'bg-red-500 border-red-700 font-bold'}`
         }
     }
-
     function handlclick(event) {
         console.log(event.target.value);
+        const character = event.target.value
         onLetterClick?.(character)
+
     }
 
 
     const buttons = alphabets.map((letter) => {
         return <button
+            text={text}
             key={letter}
             onClick={handlclick}
             value={letter}
             disabled={selectedLetters.has(letter)}
-            className={`p-3 m-2 h-16 w-16 ${buttonStyle(letter)}`}
+            className={`p-3 m-2 h-16 w-16 ${ buttonStyle(letter) } `}
         >
             {letter}
         </button>

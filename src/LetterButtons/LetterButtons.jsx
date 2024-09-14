@@ -14,12 +14,12 @@ function LetterButtons({ text, usedLetters, onLetterClick }) {
     const buttonStyle = function (letter) {
         if (selectedLetters.has(letter)) {
             // return `bg-green-500 border-green-700 hover:bg-green-600 text-white text-xl font-bold rounded-xl`
-            return `bg-red-500 border-red-700 rounded-xl font-bold text-white ${originalLetters.has(letter) ? 'bg-green-500 border-red-700 font-bold' : 'bg-red-900 disabled border-red-700 font-bold'}`
-            
+            return ` rounded-xl font-bold text-white ${originalLetters.has(letter) ? 'bg-green-500 border-red-700 font-bold' : 'bg-red-900 disabled border-red-700 font-bold'}`
+
         }
         else {
-                // return `bg-green-500 border-green-700 hover:bg-green-600 text-white text-xl font-bold rounded-xl`
-                return `bg-red-300 border-red-500 rounded-xl font-bold text-white ${originalLetters.has(letter) ? 'bg-red-500 border-red-700 font-bold' : 'bg-red-500 border-red-700 font-bold'}`
+            // return `bg-green-500 border-green-700 hover:bg-green-600 text-white text-xl font-bold rounded-xl`
+            return `bg-pink-500 border-red-500 rounded-xl font-bold text-white ${originalLetters.has(letter) ? 'bg-red-500 border-red-700 font-bold' : 'bg-red-500 border-red-700 font-bold'}`
         }
     }
     function handlclick(event) {
@@ -31,17 +31,20 @@ function LetterButtons({ text, usedLetters, onLetterClick }) {
 
 
     const buttons = alphabets.map((letter) => {
-        return <button
-            text={text}
-            key={letter}
-            onClick={handlclick}
-            value={letter}
-            disabled={selectedLetters.has(letter)}
-            className={`p-3 m-2 h-16 w-16 ${ buttonStyle(letter) } `}
-        >
-            {letter}
-        </button>
+        return (
 
+                <button
+                    text={text}
+                    key={letter}
+                    onClick={handlclick}
+                    value={letter}
+                    disabled={selectedLetters.has(letter)}
+                    className={`p-3 m-2 h-16 w-16 ${buttonStyle(letter)} `}
+                >
+                    {letter}
+                </button>
+
+        )
     })
 
     return (

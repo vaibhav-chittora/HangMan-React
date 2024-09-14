@@ -124,10 +124,19 @@
 
 
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
+
+  const navigate = useNavigate()
+  function redirectToHome() {
+    navigate('/')
+  }
   return (
-    <div className='p-3 bg-[#1F2937] text-red-300 text-center text-3xl font-bold'>Hang-Man</div>
+    <div
+      className='p-3 bg-[#1F2937] text-red-300 text-center text-3xl font-bold cursor-pointer'
+      onClick={() => redirectToHome()}
+    >Hang-Man</div>
   )
 }
 

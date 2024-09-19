@@ -1,8 +1,6 @@
 import { useState } from "react";
 import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function TextInputForm({ handleFormSubmit, handleOnChange, inputValue, inputType, SetInputType }) {
     const [showPassword, setShowPassword] = useState(false);
@@ -32,20 +30,14 @@ function TextInputForm({ handleFormSubmit, handleOnChange, inputValue, inputType
                         className="absolute top-1/2 transform -translate-y-1/2 right-4 text-gray-600 focus:outline-none"
                         onClick={togglePasswordVisibility}
                     >
-                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                     </button>
                 </div>
                 <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-4">
                     <Button
                         text="Start Game"
                         type="submit"
-                        className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
-                    />
-                    <Button
-                        text={showPassword ? "Hide" : "Show"}
-                        type="button"
-                        className="w-full sm:w-auto bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 ease-in-out"
-                        onclick={togglePasswordVisibility}
+                        className="border border-green-500 rounded-xl p-2 mx-5 text-xl font-bold hover:bg-green-500 hover:text-white"
+
                     />
                 </div>
             </form>

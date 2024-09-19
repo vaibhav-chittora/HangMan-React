@@ -1,57 +1,59 @@
 import React, { useEffect, useState } from "react";
 import MaskedText from "../../MaskedText/MaskedText";
 import LetterButtons from "../../LetterButtons/LetterButtons";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Hangman from "../../Hangman/Hangman";
-import { useNavigate } from "react-router-dom";
 
 function PlayGame() {
-  const [usedLetters, setUsedLetters] = React.useState([]);
+  const [usedLetters, setUsedLetters] = useState([]);
   const [step, setStep] = useState(0);
   const [chances, setChances] = useState(10);
-  const [winner, setWinner] = useState(false);
-  const [loser, setLoser] = useState(false);
+  const [isLoser, setIsLoser] = useState(false);
+  const [isWinner, setIsWinner] = useState(false);
 
   const navigate = useNavigate();
-
-
   const location = useLocation();
-
-  // if the selectedWord is not defined, then it will be undefined , and if it is defined, then it will return the value of selectedWord
-  const selectedWord = location.state?.selectedWord;
+  const selectedWord = location.state?.selectedWord?.toUpperCase();
 
   useEffect(() => {
-    if (selectedWord.length === 0) {
-      setWinner(true)
-      return (
-        <h1>You won!!!!!!!</h1>
-      )
+    if (!selectedWord) {
+      navigate("/");
     }
-  }, [selectedWord])
+  }, [selectedWord]);
+
+  useEffect(() => {
+    const uniqueLetters = new Set(selectedWord);
+    if (usedLetters.filter(letter => uniqueLetters.has(letter)).length === uniqueLetters.size) {
+      setIsWinner(true);
+    }
+    if (step >= chances) {
+      setIsLoser(true);
+    }
+  }, [usedLetters, selectedWord, step, chances]);
 
   const handleLetterClick = function (letter) {
-    setUsedLetters([...usedLetters, letter]);
-    if (selectedWord.includes(letter)) {
-      setStep(step + 1)
-    } else {
-      setChances(chances - 1)
+    if (!usedLetters.includes(letter)) {
+      setUsedLetters([...usedLetters, letter]);
+      if (!selectedWord.includes(letter)) {
+        setStep(prevStep => prevStep + 1);
+      }
     }
-
   };
 
-  //reset the game
   function resetGameHandler() {
-    setStep(0)
-    setChances(10)
-    setUsedLetters([])
+    setStep(0);
+    setChances(10);
+    setUsedLetters([]);
+    setIsWinner(false);
+    setIsLoser(false);
   }
-  //start a new game
+
   function newGameHandler() {
-    navigate("/")
+    navigate("/");
   }
 
   return (
-    <div className="h-[583px] flex flex-col ">
+    <div className="h-[583px] flex flex-col relative">
       <div className="text-2xl flex justify-center items-center">
         <h1 className="font-bold">Word : </h1>
         <MaskedText text={selectedWord} usedLetters={usedLetters} />
@@ -60,8 +62,7 @@ function PlayGame() {
       <hr />
 
       <div className="flex justify-between items-center m-auto">
-        {/* STEP - {step} , Chances - {chances} */}
-        <div className="basis-2/4 mx-20 flex flex-col justify-center items-center"> 
+        <div className="basis-2/4 mx-20 flex flex-col justify-center items-center">
           <div className="mb-5">
             <LetterButtons
               text={selectedWord}
@@ -70,32 +71,55 @@ function PlayGame() {
             />
           </div>
           <div className="">
-
             <button
               className="border border-green-500 rounded-xl p-2 mx-5 text-xl font-bold hover:bg-green-500 hover:text-white"
               onClick={newGameHandler}
-            >New Game
+            >
+              New Game
             </button>
             <button
               className="border border-red-500 rounded-xl p-2 mx-5 text-xl font-bold hover:bg-red-500 hover:text-white"
               onClick={resetGameHandler}
-            >Reset Game
+            >
+              Reset Game
             </button>
           </div>
         </div>
         <div className="basis-2/4 flex flex-col justify-center items-center">
-
-
-          <h1 className="text-2xl">Total lives - 10</h1>
           <Hangman step={step} />
           <h1 className="text-2xl">
-            {/* remaining chances */}
-            Remaining : {chances - step} </h1>
+            Wrong Guesses: {step} out of {chances}
+          </h1>
         </div>
-
       </div>
       <hr />
 
+      {(isWinner || isLoser) && (
+        <div className="absolute inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-5 rounded-lg shadow-xl">
+            <h2 className="text-xl font-bold mb-4">{isWinner ? "Congratulations!" : "Game Over"}</h2>
+            <p className="mb-4">
+              {isWinner ? "You won the game!" : `You lost. The word was: ${selectedWord}`}
+            </p>
+            <div className="flex justify-end">
+              <button
+                className="mr-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                onClick={newGameHandler}
+              >
+                New Game
+              </button>
+              <button
+                className="px-4 py-2 bg-red-400 text-gray-800 rounded hover:bg-red-500"
+                onClick={resetGameHandler}
+              >
+                Reset Game
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+     
     </div>
   );
 }
